@@ -29,17 +29,17 @@ class Dot{
 			this.reset()
 		}
 	}
-	
+    
 	reset(){
-		this.x = Math.ceil(random(windowWidth))
-		this.y = Math.ceil(random(windowHeight))
-		this.GoalStroke = Math.ceil(random(10,150))
+		this.x = this.getRandomInt(windowWidth)
+		this.y = this.getRandomInt(windowHeight)
+		this.GoalStroke = this.getRandomInt(10,150)
 		this.CurrStroke = 0;
-		this.r = Math.ceil(random(255))
-		this.g = Math.ceil(random(255))
-		this.b = Math.ceil(random(255))
+		this.r = this.getRandomInt(255)
+		this.g = this.getRandomInt(255)
+		this.b = this.getRandomInt(255)
 		this.a = 0.4
-		this.speed = Math.ceil(random(1,3))
+		this.speed = this.getRandomInt(1,4)
 	}
 	
 	display(){
@@ -48,7 +48,12 @@ class Dot{
 		stroke(dotColor);
 		point(this.x,this.y);
 		this.grow();
-	}
+    }
+    
+    getRandomInt(i,j=null){
+        if(j===null) return Math.ceil(random(i))
+        else return Math.ceil(random(i,j))
+    }
 	
 	
 }
