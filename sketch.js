@@ -6,7 +6,7 @@ let noOfDots = 50;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(250);
-	frameRate(20);
+	frameRate(19);
 	for(let i =0; i<noOfDots; i++){
 		dots[i] = new Dot();
 	}
@@ -23,10 +23,12 @@ function draw() {
 
 function touchStarted(){
     pressed = true;
+    return false;
 }
 
 function touchEnded(){
     pressed = false;
+    return false;
 }
 
 
@@ -45,13 +47,14 @@ class Dot{
 	reset(){
 		this.x = this.getRandomInt(windowWidth)
 		this.y = this.getRandomInt(windowHeight)
-		this.GoalStroke = this.getRandomInt(10,150)
+		this.GoalStroke = this.getRandomInt(50,150)
 		this.CurrStroke = 0;
 		this.r = this.getRandomInt(255)
 		this.g = this.getRandomInt(255)
 		this.b = this.getRandomInt(255)
 		this.a = 0.4
-		this.speed = this.getRandomInt(1,4)
+        this.speed = this.getRandomInt(0,3)
+        console.log(this.speed);
 	}
 	
 	display(){
@@ -75,11 +78,9 @@ class Dot{
         //move towards mouse
         if(this.x-this.speed > mouseX) this.x -= this.speed;
         else if(this.x+this.speed < mouseX) this.x += this.speed;
-        else {}
 
         if(this.y-this.speed > mouseY) this.y -= this.speed;
         else if(this.y+this.speed < mouseY) this.y += this.speed;
-        else {}
 
         //pop
         //if(Math.abs(mouseX-this.x) < this.CurrStroke && Math.abs(mouseY-this.y) < this.CurrStroke) this.reset();
