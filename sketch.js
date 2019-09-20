@@ -19,11 +19,13 @@ function draw() {
 	}
 }
 
-function mousePressed(){
+
+
+function touchStarted(){
     pressed = true;
 }
 
-function mouseReleased(){
+function touchEnded(){
     pressed = false;
 }
 
