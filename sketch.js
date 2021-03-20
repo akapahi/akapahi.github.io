@@ -40,7 +40,7 @@ class Dot{
 	}
 	
 	grow(){
-		this.CurrStroke+= this.speed;
+		this.CurrStroke+= this.growSpeed;
 		if(this.CurrStroke > this.GoalStroke){
 			this.reset()
 		}
@@ -55,8 +55,8 @@ class Dot{
 		this.g = this.getRandomInt(255)
 		this.b = this.getRandomInt(255)
 		this.a = 0.4
-        this.speed = this.getRandomInt(0,3)
-        console.log(this.speed);
+		this.growSpeed = this.getRandomInt(0,3);
+    this.speed = this.getRandomInt(20,60)
 	}
 	
 	display(){
@@ -74,9 +74,6 @@ class Dot{
     }
 
     moveToMouse(){
-        console.log("mouse",mouseX, mouseY)
-        console.log("this", this.x, this.y)
-
         //move towards mouse
         if(this.x-this.speed > mouseX) this.x -= this.speed;
         else if(this.x+this.speed < mouseX) this.x += this.speed;
@@ -84,11 +81,7 @@ class Dot{
         if(this.y-this.speed > mouseY) this.y -= this.speed;
         else if(this.y+this.speed < mouseY) this.y += this.speed;
 
-        //pop
-        //if(Math.abs(mouseX-this.x) < this.CurrStroke && Math.abs(mouseY-this.y) < this.CurrStroke) this.reset();
     }
 	
 	
 }
-
-	
