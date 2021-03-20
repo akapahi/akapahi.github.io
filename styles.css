@@ -7,7 +7,8 @@
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #ececec;
+  opacity: 0.7;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -16,17 +17,9 @@
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: #5e5e5e;
+  opacity: 0.5;
   color: black;
 }
-
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-Tip: To create mobile-friendly, responsive navigation bars, read our How To - Responsive Top Navigation tutorial.
-
-Tip: Go to our CSS Navbar Tutorial to learn more about navigation bars.
 
 
