@@ -1,14 +1,14 @@
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #333;
+  background-color: #ececec;
+  opacity: 0.2;
   overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  color: #ececec;
-  opacity: 0.7;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
