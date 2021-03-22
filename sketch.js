@@ -6,7 +6,7 @@ let noOfDots = 50;
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
 	canvas.position(0,0);
-	//canvas.style('z-index','-1')
+	canvas.style('z-index','-1')
 	background(250);
 	frameRate(19);
 	for(let i =0; i<noOfDots; i++){
