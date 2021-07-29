@@ -14,6 +14,10 @@ function setup() {
 	}
 }
 
+function windowResized(){
+	resizeCanvas(windowWidth, windowHeight)	
+}
+
 function draw() {
 	background(250);
 	for(let i=0; i<noOfDots; i++){
