@@ -6,7 +6,7 @@ function setup() {
 	canvas.position(0,0);
 	canvas.style('z-index','-1')
 	background(235);
-	for (var i = 0; i < 100; i++) {
+	for (var i = 0; i < 150; i++) {
 		flock.push(new Boid());
 	}
 	p = new Predator();
