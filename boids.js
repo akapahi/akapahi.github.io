@@ -6,7 +6,7 @@ function setup() {
 	canvas.position(0,0);
 	canvas.style('z-index','-1')
 	background(235);
-	for (var i = 0; i < 150; i++) {
+	for (var i = 0; i < 100; i++) {
 		flock.push(new Boid());
 	}
 	p = new Predator();
@@ -27,6 +27,10 @@ function draw() {
 	}
 
 	p.show();
+}
+
+function mouseDragged(){
+	flock.push(new Boid(mouseX, mouseY));
 }
 
 class Predator {
@@ -96,8 +100,8 @@ class Predator {
 }
 
 class Boid {
-	constructor() {
-		this.position = createVector(random(width), random(height));
+	constructor(x = random(width), y = random(height)) {
+		this.position = createVector( x, y);
 		this.velocity = createVector(random(-1, 1), random(-1, 1));
 		this.velocity.setMag(random(2, 4));
 		this.acceleration = createVector();
