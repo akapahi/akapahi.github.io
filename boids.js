@@ -3,7 +3,7 @@ let p;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	background(51);
+	background(235);
 	for (var i = 0; i < 100; i++) {
 		flock.push(new Boid());
 	}
@@ -11,7 +11,7 @@ function setup() {
 }
 
 function draw() {
-	background(51);
+	background(235);
 	for (let boid of flock) {
 		boid.rollEdges();
 		boid.flock(flock);
@@ -207,7 +207,7 @@ class Boid {
 	show() {
 		push();
 		strokeWeight(2);
-		stroke(255);
+		stroke(25);
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
 		triangle(0, -3, 0, 3, 5, 0);
