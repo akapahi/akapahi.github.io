@@ -231,6 +231,8 @@ class Boid {
 	show() {
 		push();
 		strokeWeight(2);
+		stroke(25);
+		fill(25);
 		stroke(255);
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
