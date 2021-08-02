@@ -6,7 +6,7 @@ const capacity = 6;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(51);
-	for (var i = 0; i < 250; i++) {
+	for (var i = 0; i < 100; i++) {
 		flock.push(new Boid());
 	}
 	p = new Predator();
