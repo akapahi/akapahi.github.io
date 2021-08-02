@@ -4,16 +4,23 @@ var qtree;
 const capacity = 6;
 
 function setup() {
-	createCanvas(windowWidth, windowHeight);
-	background(51);
+	canvas = createCanvas(windowWidth, windowHeight);
+	canvas.position(0,0);
+	canvas.style('z-index','-1')
+	background(240);
 	for (var i = 0; i < 100; i++) {
 		flock.push(new Boid());
 	}
 	p = new Predator();
 }
 
+function windowResized(){
+	console.log("resized");
+	resizeCanvas(windowWidth, windowHeight)	
+}
+
 function draw() {
-	background(51);
+	background(240);
 	qtree = QuadTree.create();
 
 	for (let boid of flock) {
