@@ -38,9 +38,13 @@ function draw() {
 	p.show();
 }
 
+function mouseDraggged(){
+	flock.push(new Boid(mouseX, mouseY));
+}
+
 class Predator {
-	constructor() {
-		this.position = createVector(random(width), random(height));
+	constructor(x = random(width), y = random(height)) {
+		this.position = createVector(x, y);
 		this.velocity = createVector(random(-1, 1), random(-1, 1));
 		this.velocity.setMag(random(2, 4));
 		this.acceleration = createVector();
@@ -110,8 +114,8 @@ class Predator {
 }
 
 class Boid {
-	constructor() {
-		this.position = createVector(random(width), random(height));
+	constructor(x = random(width), y = random(height)) {
+		this.position = createVector(x, y);
 		this.velocity = createVector(random(-1, 1), random(-1, 1));
 		this.velocity.setMag(random(2, 4));
 		this.acceleration = createVector();
