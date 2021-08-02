@@ -15,7 +15,6 @@ function setup() {
 }
 
 function windowResized(){
-	console.log("resized");
 	resizeCanvas(windowWidth, windowHeight)	
 }
 
@@ -38,7 +37,7 @@ function draw() {
 	p.show();
 }
 
-function mouseDraggged(){
+function mouseDragged(){
 	flock.push(new Boid(mouseX, mouseY));
 }
 
