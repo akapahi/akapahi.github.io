@@ -63,7 +63,7 @@ function draw() {
 		}
 		push();
 		noStroke();
-		fill(250);
+		fill(0);
 		text('avg. frame rate: ' + af, 0, height - 10);
 		text('boids: ' + flock.length, 0, height - 23);
 		pop();
