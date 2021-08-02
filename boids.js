@@ -233,7 +233,6 @@ class Boid {
 		strokeWeight(2);
 		stroke(25);
 		fill(25);
-		stroke(255);
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
 		triangle(0, -3, 0, 3, 5, 0);
