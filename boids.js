@@ -1,36 +1,34 @@
 let flock = []
 let p;
+var qtree;
+const capacity = 6;
 
 function setup() {
-	canvas = createCanvas(windowWidth, windowHeight);
-	canvas.position(0,0);
-	canvas.style('z-index','-1')
-	background(235);
-	for (var i = 0; i < 100; i++) {
+	createCanvas(windowWidth, windowHeight);
+	background(51);
+	for (var i = 0; i < 250; i++) {
 		flock.push(new Boid());
 	}
 	p = new Predator();
 }
 
-function windowResized(){
-	console.log("resized");
-	resizeCanvas(windowWidth, windowHeight)	
-}
-
 function draw() {
-	background(235);
+	background(51);
+	qtree = QuadTree.create();
+
+	for (let boid of flock) {
+		let point = new Point(boid.position.x, boid.position.y, boid);
+		qtree.insert(point);
+		boid.show();
+	}
+	
 	for (let boid of flock) {
 		boid.rollEdges();
 		boid.flock(flock);
 		boid.update();
-		boid.show();
 	}
 
 	p.show();
-}
-
-function mouseDragged(){
-	flock.push(new Boid(mouseX, mouseY));
 }
 
 class Predator {
@@ -53,15 +51,20 @@ class Predator {
 		rotate(this.velocity.heading());
 		triangle(0, -6, 0, 6, 8, 0);
 		pop();
-		p.move(flock);
+		p.move();
 		p.update();
 	}
 
 
-	chase(boids) {
+	chase() {
 		let steering = createVector();
 		let count = 0;
-		for (let other of boids) {
+		
+		let range = new Circle(this.position.x, this.position.y, this.perception);
+		let n = qtree.query(range)
+		
+		for (let y of n) {
+			let other = y.userData;
 			let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
 			if (d < this.perception) {
 				steering.add(other.position);
@@ -78,9 +81,9 @@ class Predator {
 		return steering;
 	}
 
-	move(boids) {
+	move() {
 		this.acceleration.set(0, 0);
-		let cohesion = this.chase(boids).mult(1.0);
+		let cohesion = this.chase().mult(1.0);
 		this.acceleration.add(cohesion);
 	}
 
@@ -100,14 +103,14 @@ class Predator {
 }
 
 class Boid {
-	constructor(x = random(width), y = random(height)) {
-		this.position = createVector( x, y);
+	constructor() {
+		this.position = createVector(random(width), random(height));
 		this.velocity = createVector(random(-1, 1), random(-1, 1));
 		this.velocity.setMag(random(2, 4));
 		this.acceleration = createVector();
 		this.maxForce = 0.05;
 		this.maxSpeed = 3;
-		this.perception = 50;
+		this.perception = 100;
 	}
 
 	flock(boids) {
@@ -132,10 +135,13 @@ class Boid {
 
 	findNeighbors(boids) {
 		let n = [];
-		for (let other of boids) {
-			let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
-			if (other != this && d < this.perception) {
-				n.push(other);
+		
+		let range = new Circle(this.position.x, this.position.y, this.perception);
+		let q = qtree.query(range)
+		
+		for (let other of q) {
+			if (other.userData != this) {
+				n.push(other.userData);
 			}
 		}
 		return n;
@@ -144,7 +150,7 @@ class Boid {
 	flight() {
 		let steering = createVector();
 		let d = dist(this.position.x, this.position.y, p.position.x, p.position.y);
-		if (d <= this.perception+50) {
+		if (d <= this.perception) {
 			let diff = p5.Vector.sub(this.position, p.position);
 			diff.div(d);
 			steering.add(diff);
@@ -218,8 +224,7 @@ class Boid {
 	show() {
 		push();
 		strokeWeight(2);
-		stroke(25);
-		fill(25);
+		stroke(255);
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
 		triangle(0, -3, 0, 3, 5, 0);
