@@ -2,6 +2,9 @@ let flock = []
 let p;
 var qtree;
 const capacity = 6;
+var state = 0;
+var f = 0;
+var af = 60;
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
@@ -18,8 +21,54 @@ function windowResized(){
 	resizeCanvas(windowWidth, windowHeight)	
 }
 
+function keyTyped() {
+	console.log("key: " + key);
+	console.log("state: " + state);
+	switch (key) {
+		case 'd': {
+			state = 1;
+			break;
+		}
+		case 'b': {
+			if (state == 1) state++;
+			else state = 0;
+			break;
+		}
+		case 'u': {
+			if (state == 2) state++;
+			else state = 0;
+			break;
+		}
+		case 'g': {
+			if (state == 3) state++;
+			else state = 0;
+			break;
+		}
+		default: {
+			state = 0;
+		}
+	}
+}
+
 function draw() {
 	background(240);
+	
+
+	if (state == 4) {
+		let fr = floor(frameRate());
+		f += fr;
+		if (frameCount % 60 == 0) {
+			af = f / 60;
+			f = 0;
+		}
+		push();
+		noStroke();
+		fill(250);
+		text('avg. frame rate: ' + af, 0, height - 10);
+		text('boids: ' + flock.length, 0, height - 23);
+		pop();
+	}
+	
 	qtree = QuadTree.create();
 
 	for (let boid of flock) {
