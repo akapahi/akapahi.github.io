@@ -35,7 +35,7 @@ function windowResized(){
 	resizeCanvas(windowWidth, windowHeight)	
 }
 
-function updatePerception() {
+function updateValues() {
 	for (let boid of flock) {
 		boid.perception = boid_p_slider.value();
 		boid.separationForce = boid_s_slider.value();
@@ -65,32 +65,32 @@ function displayDebug() {
 	boid_p_slider.show();
 	boid_p_slider.position(120, height - 90);
 	boid_p_slider.style('width', '80px');
-	boid_p_slider.input(updatePerception);
+	boid_p_slider.input(updateValues);
   
   	boid_a_slider.show();
 	boid_a_slider.position(120, height - 105);
 	boid_a_slider.style('width', '80px');
-	boid_a_slider.input(updatePerception);
+	boid_a_slider.input(updateValues);
   
   	boid_c_slider.show();
 	boid_c_slider.position(120, height - 120);
 	boid_c_slider.style('width', '80px');
-	boid_c_slider.input(updatePerception);
+	boid_c_slider.input(updateValues);
   
   	boid_s_slider.show();
 	boid_s_slider.position(120, height - 135);
 	boid_s_slider.style('width', '80px');
-	boid_s_slider.input(updatePerception);
+	boid_s_slider.input(updateValues);
   
  	boid_f_slider.show();
 	boid_f_slider.position(120, height - 150);
 	boid_f_slider.style('width', '80px');
-	boid_f_slider.input(updatePerception);
+	boid_f_slider.input(updateValues);
 	
 	boid_ds_slider.show();
 	boid_ds_slider.position(120, height - 165);
 	boid_ds_slider.style('width', '80px');
-	boid_ds_slider.input(updatePerception);
+	boid_ds_slider.input(updateValues);
 }
 
 function hideDebug() {
@@ -99,16 +99,8 @@ function hideDebug() {
 	boid_c_slider.hide();
 	boid_s_slider.hide();
 	boid_f_slider.hide();
+	boid_ds_slider.hide();
 }
-
-function hideDebug() {
-	boid_p_slider.hide();
-	boid_a_slider.hide();
-	boid_c_slider.hide();
-	boid_s_slider.hide();
-	boid_f_slider.hide();
-}
-
 
 function keyTyped() {
 	console.log("key: " + key);
