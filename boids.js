@@ -47,41 +47,49 @@ function displayDebug() {
 	push();
 	noStroke();
 	fill(10);
-	text('Press any key to exit debug', 0, 10);
-	text('avg. frame rate: ' + af, 0, 23);
-	text('boids: ' + flock.length, 0, 36);
-	text('boids settings', 0, 60);
-	text('perception radius: ' + boid_p_slider.value(), 0, 75);
-	text('alignment force: ' + boid_a_slider.value(), 0, 90);
-	text('cohesion force: ' + boid_c_slider.value(), 0, 105);
-	text('separation force: ' + boid_s_slider.value(), 0, 120);
-	text('flight force: ' + boid_f_slider.value(), 0, 135);
+	text('Press any key to exit debug', 0, height- 10);
+	text('avg. frame rate: ' + af, 0,  height- 23);
+	text('boids: ' + flock.length, 0,  height- 36);
+	text('boids settings', 0, height-  60);
+	text('perception radius: ' + boid_p_slider.value(), 0,  height- 75);
+	text('alignment force: ' + boid_a_slider.value(), 0,  height- 90);
+	text('cohesion force: ' + boid_c_slider.value(), 0,  height- 105);
+	text('separation force: ' + boid_s_slider.value(), 0,  height- 120);
+	text('flight force: ' + boid_f_slider.value(), 0,  height- 135);
 	pop();
 
 	boid_p_slider.show();
-	boid_p_slider.position(120, 60);
+	boid_p_slider.position(120, height-  90);
 	boid_p_slider.style('width', '80px');
 	boid_p_slider.input(updatePerception);
   
   	boid_a_slider.show();
-	boid_a_slider.position(120, 75);
+	boid_a_slider.position(120, height-  105);
 	boid_a_slider.style('width', '80px');
 	boid_a_slider.input(updatePerception);
   
   	boid_c_slider.show();
-	boid_c_slider.position(120, 90);
+	boid_c_slider.position(120, height-  120);
 	boid_c_slider.style('width', '80px');
 	boid_c_slider.input(updatePerception);
   
   	boid_s_slider.show();
-	boid_s_slider.position(120, 105);
+	boid_s_slider.position(120, height-  135);
 	boid_s_slider.style('width', '80px');
 	boid_s_slider.input(updatePerception);
   
-    boid_f_slider.show();
-	boid_f_slider.position(120, 120);
+ 	boid_f_slider.show();
+	boid_f_slider.position(120, height-  150);
 	boid_f_slider.style('width', '80px');
 	boid_f_slider.input(updatePerception);
+}
+
+function hideDebug() {
+	boid_p_slider.hide();
+	boid_a_slider.hide();
+	boid_c_slider.hide();
+	boid_s_slider.hide();
+	boid_f_slider.hide();
 }
 
 function hideDebug() {
@@ -240,6 +248,7 @@ class Boid {
 		this.maxForce = 0.05;
 		this.maxSpeed = 3;
 		this.perception = 100;
+		this.desiredSeparation = 25.0;
 		this.separationForce = 1.5;
 		this.alignmentForce = 1;
 		this.cohesionForce = 1;
@@ -327,12 +336,11 @@ class Boid {
 
 	separation(boids) {
 		let steering = createVector();
-		var desiredseparation = 25.0;
 		var count = 0;
 		for (let other of boids) {
 			let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
 
-			if ((d > 0) && (d < desiredseparation)) {
+			if ((d > 0) && (d < this.desiredSeparation)) {
 				let diff = p5.Vector.sub(this.position, other.position);
 				diff.div(d);
 				steering.add(diff);
