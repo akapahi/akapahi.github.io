@@ -11,6 +11,7 @@ let boid_a_slider;
 let boid_s_slider;
 let boid_c_slider;
 let boid_f_slider;
+let boid_ds_slider;
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
@@ -27,6 +28,7 @@ function setup() {
 	boid_a_slider = createSlider(0, 5, 1, 0.5);
 	boid_c_slider = createSlider(0, 5, 1, 0.5);
 	boid_f_slider = createSlider(0, 5, 5, 0.5);
+	boid_ds_slider = createSlider(0, 100, 25, 5);
 }
 
 function windowResized(){
@@ -40,6 +42,7 @@ function updatePerception() {
 		boid.alignmentForce = boid_a_slider.value();
 		boid.cohesionForce = boid_c_slider.value();
 		boid.flightForce = boid_f_slider.value();
+		boid.desiredSeparation = boid_ds_slider.value();
 	}
 }
 
@@ -51,37 +54,43 @@ function displayDebug() {
 	text('avg. frame rate: ' + af, 0,  height- 23);
 	text('boids: ' + flock.length, 0,  height- 36);
 	text('boids settings', 0, height-  60);
-	text('perception radius: ' + boid_p_slider.value(), 0,  height- 75);
-	text('alignment force: ' + boid_a_slider.value(), 0,  height- 90);
-	text('cohesion force: ' + boid_c_slider.value(), 0,  height- 105);
-	text('separation force: ' + boid_s_slider.value(), 0,  height- 120);
-	text('flight force: ' + boid_f_slider.value(), 0,  height- 135);
+	text('perception radius: ' + boid_p_slider.value(), 0,  height - 75);
+	text('alignment force: ' + boid_a_slider.value(), 0,  height - 90);
+	text('cohesion force: ' + boid_c_slider.value(), 0,  height - 105);
+	text('separation force: ' + boid_s_slider.value(), 0,  height - 120);
+	text('flight force: ' + boid_f_slider.value(), 0,  height - 135);
+	text('desired separation: ' + boid_ds_slider.value(), 0, height - 150);
 	pop();
 
 	boid_p_slider.show();
-	boid_p_slider.position(120, height-  90);
+	boid_p_slider.position(120, height - 90);
 	boid_p_slider.style('width', '80px');
 	boid_p_slider.input(updatePerception);
   
   	boid_a_slider.show();
-	boid_a_slider.position(120, height-  105);
+	boid_a_slider.position(120, height - 105);
 	boid_a_slider.style('width', '80px');
 	boid_a_slider.input(updatePerception);
   
   	boid_c_slider.show();
-	boid_c_slider.position(120, height-  120);
+	boid_c_slider.position(120, height - 120);
 	boid_c_slider.style('width', '80px');
 	boid_c_slider.input(updatePerception);
   
   	boid_s_slider.show();
-	boid_s_slider.position(120, height-  135);
+	boid_s_slider.position(120, height - 135);
 	boid_s_slider.style('width', '80px');
 	boid_s_slider.input(updatePerception);
   
  	boid_f_slider.show();
-	boid_f_slider.position(120, height-  150);
+	boid_f_slider.position(120, height - 150);
 	boid_f_slider.style('width', '80px');
 	boid_f_slider.input(updatePerception);
+	
+	boid_ds_slider.show();
+	boid_ds_slider.position(120, height - 165);
+	boid_ds_slider.style('width', '80px');
+	boid_ds_slider.input(updatePerception);
 }
 
 function hideDebug() {
