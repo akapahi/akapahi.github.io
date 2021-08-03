@@ -5,6 +5,12 @@ const capacity = 6;
 var state = 0;
 var f = 0;
 var af = 60;
+var state = 4;
+let boid_p_slider;
+let boid_a_slider;
+let boid_s_slider;
+let boid_c_slider;
+let boid_f_slider;
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
@@ -15,11 +21,77 @@ function setup() {
 		flock.push(new Boid());
 	}
 	p = new Predator();
+	
+	boid_p_slider = createSlider(0, 500, 100, 10);
+	boid_s_slider = createSlider(0, 5, 1.5, 0.5);
+	boid_a_slider = createSlider(0, 5, 1, 0.5);
+	boid_c_slider = createSlider(0, 5, 1, 0.5);
+	boid_f_slider = createSlider(0, 5, 5, 0.5);
 }
 
 function windowResized(){
 	resizeCanvas(windowWidth, windowHeight)	
 }
+
+function updatePerception() {
+	for (let boid of flock) {
+		boid.perception = boid_p_slider.value();
+		boid.separationForce = boid_s_slider.value();
+		boid.alignmentForce = boid_a_slider.value();
+		boid.cohesionForce = boid_c_slider.value();
+		boid.flightForce = boid_f_slider.value();
+	}
+}
+
+function displayDebug() {
+	push();
+	noStroke();
+	fill(250);
+	text('Press any key to exit debug', 0, 10);
+	text('avg. frame rate: ' + af, 0, 23);
+	text('boids: ' + flock.length, 0, 36);
+	text('boids settings', 0, 60);
+	text('perception radius: ' + boid_p_slider.value(), 0, 75);
+	text('alignment force: ' + boid_a_slider.value(), 0, 90);
+	text('cohesion force: ' + boid_c_slider.value(), 0, 105);
+	text('separation force: ' + boid_s_slider.value(), 0, 120);
+	text('flight force: ' + boid_f_slider.value(), 0, 135);
+	pop();
+
+	boid_p_slider.show();
+	boid_p_slider.position(120, 60);
+	boid_p_slider.style('width', '80px');
+	boid_p_slider.input(updatePerception);
+  
+  	boid_a_slider.show();
+	boid_a_slider.position(120, 75);
+	boid_a_slider.style('width', '80px');
+	boid_a_slider.input(updatePerception);
+  
+  	boid_c_slider.show();
+	boid_c_slider.position(120, 90);
+	boid_c_slider.style('width', '80px');
+	boid_c_slider.input(updatePerception);
+  
+  	boid_s_slider.show();
+	boid_s_slider.position(120, 105);
+	boid_s_slider.style('width', '80px');
+	boid_s_slider.input(updatePerception);
+  
+    boid_f_slider.show();
+	boid_f_slider.position(120, 120);
+	boid_f_slider.style('width', '80px');
+	boid_f_slider.input(updatePerception);
+}
+
+function hideDebug() {
+	boid_p_slider.hide();
+	boid_a_slider.hide();
+	boid_c_slider.hide();
+	boid_s_slider.hide();
+	boid_f_slider.hide();
+}
+
 
 function keyTyped() {
 	console.log("key: " + key);
@@ -61,13 +133,8 @@ function draw() {
 			af = f / 60;
 			f = 0;
 		}
-		push();
-		noStroke();
-		fill(0);
-		text('avg. frame rate: ' + af, 0, height - 10);
-		text('boids: ' + flock.length, 0, height - 23);
-		pop();
-	}
+		displayDebug();
+	}else hideDebug();
 	
 	qtree = QuadTree.create();
 
@@ -87,7 +154,10 @@ function draw() {
 }
 
 function mouseDragged(){
-	flock.push(new Boid(mouseX, mouseY));
+	if (state != 4) {
+		flock.push(new Boid(mouseX, mouseY))
+		if (flock.length > 200) flock.shift();
+	}
 }
 
 class Predator {
@@ -170,15 +240,19 @@ class Boid {
 		this.maxForce = 0.05;
 		this.maxSpeed = 3;
 		this.perception = 100;
+		this.separationForce = 1.5;
+		this.alignmentForce = 1;
+		this.cohesionForce = 1;
+		this.flightForce = 5;
 	}
 
 	flock(boids) {
 		this.acceleration.set(0, 0);
 		let n = this.findNeighbors(boids);
-		let alignment = this.align(n).mult(1.0);
-		let cohesion = this.cohesion(n).mult(1.0);
-		let separation = this.separation(n).mult(1.5);
-		let flightResponse = this.flight().mult(5);
+		let alignment = this.align(n).mult(this.alignmentForce);
+		let cohesion = this.cohesion(n).mult(this.cohesionForce);
+		let separation = this.separation(n).mult(this.separationForce);
+		let flightResponse = this.flight().mult(this.flightForce);
 		this.acceleration.add(alignment);
 		this.acceleration.add(cohesion);
 		this.acceleration.add(separation);
