@@ -5,7 +5,7 @@ const capacity = 6;
 var state = 0;
 var f = 0;
 var af = 60;
-var state = 4;
+var state = 0;
 let boid_p_slider;
 let boid_a_slider;
 let boid_s_slider;
@@ -46,7 +46,7 @@ function updatePerception() {
 function displayDebug() {
 	push();
 	noStroke();
-	fill(250);
+	fill(10);
 	text('Press any key to exit debug', 0, 10);
 	text('avg. frame rate: ' + af, 0, 23);
 	text('boids: ' + flock.length, 0, 36);
