@@ -11,6 +11,7 @@ let boid_a_slider;
 let boid_s_slider;
 let boid_c_slider;
 let boid_f_slider;
+let boid_ms_slider;
 let boid_ds_slider;
 
 function setup() {
@@ -29,6 +30,7 @@ function setup() {
 	boid_c_slider = createSlider(0, 5, 1, 0.5);
 	boid_f_slider = createSlider(0, 5, 5, 0.5);
 	boid_ds_slider = createSlider(0, 100, 25, 5);
+	boid_ms_slider = createSlider(1, 5, 3, 0.5);
 }
 
 function windowResized(){
@@ -43,6 +45,7 @@ function updateValues() {
 		boid.cohesionForce = boid_c_slider.value();
 		boid.flightForce = boid_f_slider.value();
 		boid.desiredSeparation = boid_ds_slider.value();
+		boid.maxSpeed = boid_ms_slider.value();
 	}
 }
 
@@ -60,6 +63,7 @@ function displayDebug() {
 	text('separation force: ' + boid_s_slider.value(), 0,  height - 120);
 	text('flight force: ' + boid_f_slider.value(), 0,  height - 135);
 	text('desired separation: ' + boid_ds_slider.value(), 0, height - 150);
+	text('max speed: ' + boid_ms_slider.value(), 0, height - 165);
 	pop();
 
 	boid_p_slider.show();
@@ -91,6 +95,11 @@ function displayDebug() {
 	boid_ds_slider.position(120, height - 165);
 	boid_ds_slider.style('width', '80px');
 	boid_ds_slider.input(updateValues);
+	
+	boid_ms_slider.show();
+	boid_ms_slider.position(120, height - 180);
+	boid_ms_slider.style('width', '80px');
+	boid_ms_slider.input(updateValues);
 }
 
 function hideDebug() {
