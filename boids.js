@@ -109,6 +109,7 @@ function hideDebug() {
 	boid_s_slider.hide();
 	boid_f_slider.hide();
 	boid_ds_slider.hide();
+	boid_ms_slider.hide();
 }
 
 function keyTyped() {
