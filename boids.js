@@ -6,6 +6,7 @@ var state = 0;
 var f = 0;
 var af = 60;
 var state = 0;
+let shark = ['S', 'H', 'A', 'R', 'K'];
 let boid_p_slider;
 let boid_a_slider;
 let boid_s_slider;
@@ -197,7 +198,14 @@ class Predator {
 		stroke(240, 100, 100);
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
-		triangle(0, -6, 0, 6, 8, 0);
+		//triangle(0, -6, 0, 6, 8, 0);
+		var i = 0, size = 16;
+	    	for(var l of shark){
+      			textSize(size);
+    			text(l, i, 0);
+      			i+= 7 + size/3;
+      			size += 2;
+    		}
 		pop();
 		p.move();
 		p.update();
@@ -380,7 +388,8 @@ class Boid {
 		fill(25);
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
-		triangle(0, -3, 0, 3, 5, 0);
+		//triangle(0, -3, 0, 3, 5, 0);
+		text("FISH", 0, 0);
 		pop();
 	}
 
