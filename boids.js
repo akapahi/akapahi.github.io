@@ -212,13 +212,7 @@ class Predator {
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
 		//triangle(0, -6, 0, 6, 8, 0);
-		var i = 0, size = 16;
-	    	for(var l of shark){
-      			textSize(size);
-    			text(l, i, 0);
-      			i+= 7 + size/3;
-      			size += 2;
-    		}
+		
 		pop();
 		p.move();
 		p.update();
