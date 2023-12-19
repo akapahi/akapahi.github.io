@@ -23,7 +23,7 @@ function preload() {
 		 loadImage('assets/b2.png'),
 		 loadImage('assets/b3.png'),
 		 loadImage('assets/b4.png'),
-		 loadImage('assets/b5.png'),
+		 //loadImage('assets/b5.png'),
 	]
 	bg= loadImage("assets/bg.png");
 }
@@ -395,7 +395,7 @@ class Boid {
 		stroke(25);
 		fill(25);
 		translate(this.position.x, this.position.y);
-		rotate(this.velocity.heading());
+		//rotate(this.velocity.heading());
 		//triangle(0, -3, 0, 3, 5, 0);
 		//text("FISH", 0, 0);
 		image(this.img,0,0,25,25);
