@@ -17,14 +17,18 @@ let boid_ds_slider;
 let song; 
 let bg;
 let birds;
+let fl = false;
 
 function preload() {
 	birds = [loadImage('assets/b1.png'),
 		 loadImage('assets/b2.png'),
 		 loadImage('assets/b3.png'),
 		 loadImage('assets/b4.png'),
-		 //loadImage('assets/b5.png'),
+		 loadImage('assets/b5.png')
 	]
+
+	song = loadSound('assets/birds.mp3');
+
 	bg= loadImage("assets/bg.png");
 }
 
@@ -45,6 +49,9 @@ function setup() {
 	boid_f_slider = createSlider(0, 5, 5, 0.5);
 	boid_ds_slider = createSlider(0, 100, 25, 5);
 	boid_ms_slider = createSlider(1, 5, 3, 0.5);
+
+	mouseClicked();
+
 }
 
 function windowResized(){
@@ -158,7 +165,6 @@ function keyTyped() {
 function draw() {
 	
 	image(bg,0,0,width,height);
-
 	if (state == 4) {
 		let fr = floor(frameRate());
 		f += fr;
@@ -191,6 +197,16 @@ function mouseDragged(){
 		flock.push(new Boid(mouseX, mouseY))
 		if (flock.length > 200) flock.shift();
 	}
+}
+
+function mouseClicked(){
+	console.log("click")
+	if (!song.isPlaying()) {
+
+		// .isPlaying() returns a boolean
+		 song.play();
+	}else song.stop();
+	if(fl==false){song.play(); fl= true;}
 }
 
 class Predator {
