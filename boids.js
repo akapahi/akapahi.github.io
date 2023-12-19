@@ -15,6 +15,8 @@ let boid_f_slider;
 let boid_ms_slider;
 let boid_ds_slider;
 let song; 
+let bg;
+let birds;
 
 function preload() {
 	birds = [loadImage('assets/b1.png'),
