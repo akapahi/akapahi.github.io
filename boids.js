@@ -14,6 +14,20 @@ let boid_c_slider;
 let boid_f_slider;
 let boid_ms_slider;
 let boid_ds_slider;
+let song; 
+
+function preload() {
+	birds = [loadImage('assets/b1.png'),
+		 loadImage('assets/b2.png'),
+		 loadImage('assets/b3.png'),
+		 loadImage('assets/b4.png'),
+		 loadImage('assets/b5.png'),
+	]
+
+	song = loadSound('assets/birds.mp3');
+
+	bg= loadImage("assets/bg.png");
+}
 
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
@@ -143,9 +157,12 @@ function keyTyped() {
 }
 
 function draw() {
-	background(240);
 	
-
+	image(bg,0,0,width,height);
+ if (!song.isPlaying()) {
+    // .isPlaying() returns a boolean
+    song.play();
+  }
 	if (state == 4) {
 		let fr = floor(frameRate());
 		f += fr;
@@ -261,6 +278,7 @@ class Predator {
 class Boid {
 	constructor(x = random(width), y = random(height)) {
 		this.position = createVector(x, y);
+		this.img = random(birds);
 		this.velocity = createVector(random(-1, 1), random(-1, 1));
 		this.velocity.setMag(random(2, 4));
 		this.acceleration = createVector();
@@ -389,7 +407,8 @@ class Boid {
 		translate(this.position.x, this.position.y);
 		rotate(this.velocity.heading());
 		//triangle(0, -3, 0, 3, 5, 0);
-		text("FISH", 0, 0);
+		//text("FISH", 0, 0);
+		image(this.img,0,0,25,25);
 		pop();
 	}
 
