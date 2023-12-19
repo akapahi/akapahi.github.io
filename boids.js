@@ -25,9 +25,6 @@ function preload() {
 		 loadImage('assets/b4.png'),
 		 loadImage('assets/b5.png'),
 	]
-
-	song = loadSound('assets/birds.mp3');
-
 	bg= loadImage("assets/bg.png");
 }
 
@@ -161,10 +158,7 @@ function keyTyped() {
 function draw() {
 	
 	image(bg,0,0,width,height);
- if (!song.isPlaying()) {
-    // .isPlaying() returns a boolean
-    song.play();
-  }
+
 	if (state == 4) {
 		let fr = floor(frameRate());
 		f += fr;
